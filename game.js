@@ -29,6 +29,7 @@ function upperFirstChar(str){
  * Plays one round of rock paper scissors game.
  * @param {String} playerSelection 
  * @param {String} computerSelection 
+ * @returns Result of round
  */
 function playRound(playerSelection, computerSelection){
     // Case-insensitive
@@ -36,17 +37,17 @@ function playRound(playerSelection, computerSelection){
     computerSelection = computerSelection.toLowerCase();
 
     if(playerSelection === computerSelection){
-        console.log("That's a tie!")
+        return "That's a tie!";
     }
     else if((playerSelection == 'rock' && computerSelection == 'scissors') ||
             (playerSelection == 'paper' && computerSelection == 'rock') ||
             (playerSelection == 'scissors' && computerSelection == 'paper')){
-                console.log("You win! " + upperFirstChar(playerSelection) + " Beats " 
-                                        + upperFirstChar(computerSelection));
+                return "You win! " + upperFirstChar(playerSelection) + " Beats " 
+                                        + upperFirstChar(computerSelection);
             }
     else{
-        console.log("You Lose! " + upperFirstChar(computerSelection) +
-                    " Beats " + upperFirstChar(playerSelection));
+        return "You Lose! " + upperFirstChar(computerSelection) +
+                    " Beats " + upperFirstChar(playerSelection);
     }
 }
 
