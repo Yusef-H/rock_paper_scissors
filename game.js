@@ -51,12 +51,52 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
+
+function handleDom(){
+    const buttons = document.querySelectorAll('.opt');
+    buttons.forEach((button)=>{
+        button.addEventListener('click', (e)=>{
+            console.log(e.target.textContent);
+        })
+    })
+}
+
+
+function getOptionButtons(){
+    return document.querySelectorAll('.opt');
+}
+
+
+
+function displayResult(result){
+    const titleBoard = document.querySelector('.title');
+    const titleText = document.querySelector('h1');
+    titleText.textContent = result;
+    titleBoard.appendChild(titleText);
+}
+
+
 /**
  * Plays a rock paper scissors game between a player and 
  * the computer and prints the results.
  */
 function game(){
+
+    var playerScore = 0;
+    var computerScore = 0;
+    const buttons = getOptionButtons();
     
+    buttons.forEach((button)=>{
+        button.addEventListener('click', (e)=>{
+            const playerSelection = e.target.textContent;
+            let result = playRound(playerSelection,getComputerChoice());
+            displayResult(result);
+            // if(winCheck(result))
+            //     playerScore++;
+            // else
+            //     computerScore++;
+        })
+    })
 }
 
 game();
