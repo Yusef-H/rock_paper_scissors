@@ -56,24 +56,7 @@ function playRound(playerSelection, computerSelection){
  * the computer and prints the results.
  */
 function game(){
-    var playerScore = 0;
-    var computerScore = 0;
-    for(let i = 0; i < 5; i++){
-        let playerChoice = prompt("Enter your choice!");
-        let result = playRound(playerChoice, getComputerChoice());
-        if(result.substr(4,4) == "Lose"){
-            console.log(result);
-            computerScore++;
-        }
-        else{
-            console.log(result);
-            playerScore++;
-        }
-    }
-    if(playerScore > computerScore)
-        console.log("You won the game.");
-    else
-        console.log("You lost the game.");
+    
 }
 
 game();
