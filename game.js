@@ -51,6 +51,9 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
+/**
+ * @returns nodelist of all option buttons.
+ */
 function getOptionButtons(){
     return document.querySelectorAll('.opt');
 }
@@ -66,22 +69,35 @@ function displayResult(result){
 }
 
 /**
- * Check if the player won.
+ * @returns true if player has won and false otherwise.
  */
 function winCheck(result){
     return result.slice(4,8) === 'win!';
 }
 
+/** 
+ * @returns true if its a tie and false otherwise.
+ */
 function tieCheck(result){
     return result.slice(9,12) === 'tie';
 }
 
+/**
+ *  Update scoreboard after every round.
+ */
 function updateScoreBoard(playerScore, computerScore){
     const playerScoreBoard = document.querySelector('.player-score');
     const computerScoreBoard = document.querySelector('.computer-score');
     playerScoreBoard.textContent = "" + playerScore;
     computerScoreBoard.textContent = "" + computerScore;
+}
 
+function handleRestart(){
+    const restartButton = document.querySelector('.restart');
+    restartButton.addEventListener('click', ()=>{
+        updateScoreBoard(0, 0); /* Restarts score board to 0,0. */
+        displayResult("Welcome To the Game!");
+    })
 }
 
 /**
@@ -93,6 +109,7 @@ function game(){
     var playerScore = 0;
     var computerScore = 0;
     const buttons = getOptionButtons();
+    handleRestart();
     
     buttons.forEach((button)=>{
         button.addEventListener('click', (e)=>{
