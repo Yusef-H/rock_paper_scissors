@@ -51,23 +51,13 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-
-function handleDom(){
-    const buttons = document.querySelectorAll('.opt');
-    buttons.forEach((button)=>{
-        button.addEventListener('click', (e)=>{
-            console.log(e.target.textContent);
-        })
-    })
-}
-
-
 function getOptionButtons(){
     return document.querySelectorAll('.opt');
 }
 
-
-
+/**
+ * Display the round result on the board.
+ */
 function displayResult(result){
     const titleBoard = document.querySelector('.title');
     const titleText = document.querySelector('h1');
@@ -75,6 +65,24 @@ function displayResult(result){
     titleBoard.appendChild(titleText);
 }
 
+/**
+ * Check if the player won.
+ */
+function winCheck(result){
+    return result.slice(4,8) === 'win!';
+}
+
+function tieCheck(result){
+    return result.slice(9,12) === 'tie';
+}
+
+function updateScoreBoard(playerScore, computerScore){
+    const playerScoreBoard = document.querySelector('.player-score');
+    const computerScoreBoard = document.querySelector('.computer-score');
+    playerScoreBoard.textContent = "" + playerScore;
+    computerScoreBoard.textContent = "" + computerScore;
+
+}
 
 /**
  * Plays a rock paper scissors game between a player and 
@@ -91,10 +99,11 @@ function game(){
             const playerSelection = e.target.textContent;
             let result = playRound(playerSelection,getComputerChoice());
             displayResult(result);
-            // if(winCheck(result))
-            //     playerScore++;
-            // else
-            //     computerScore++;
+            if(winCheck(result))
+                playerScore++;
+            else if(!tieCheck(result))
+                computerScore++;
+            updateScoreBoard(playerScore, computerScore);
         })
     })
 }
