@@ -61,7 +61,7 @@ function getOptionButtons(){
 /**
  * Display the round result on the board.
  */
-function displayResult(result){
+function displayOnTitle(result){
     const titleBoard = document.querySelector('.title');
     const titleText = document.querySelector('h1');
     titleText.textContent = result;
@@ -92,12 +92,27 @@ function updateScoreBoard(playerScore, computerScore){
     computerScoreBoard.textContent = "" + computerScore;
 }
 
+var flag = false; /* Flag to know if the game has ended. */
+var playerScore = 0;
+var computerScore = 0;
 function handleRestart(){
     const restartButton = document.querySelector('.restart');
     restartButton.addEventListener('click', ()=>{
         updateScoreBoard(0, 0); /* Restarts score board to 0,0. */
-        displayResult("Welcome To the Game!");
+        displayOnTitle("Welcome To the Game!");
+        flag = false;
+        playerScore = 0;
+        computerScore = 0;
     })
+}
+
+function announceWinner(playerScore, computerScore){
+    if(playerScore == 5){
+        displayOnTitle("Nice Job! You have won the Game against the Computer!  Press Restart to try another Game!")
+    }
+    else{
+        displayOnTitle("Unlucky! The Computer has won the game against You! Press Restart to try again!")
+    }
 }
 
 /**
@@ -105,22 +120,28 @@ function handleRestart(){
  * the computer and prints the results.
  */
 function game(){
-
-    var playerScore = 0;
-    var computerScore = 0;
     const buttons = getOptionButtons();
     handleRestart();
     
     buttons.forEach((button)=>{
         button.addEventListener('click', (e)=>{
-            const playerSelection = e.target.textContent;
-            let result = playRound(playerSelection,getComputerChoice());
-            displayResult(result);
-            if(winCheck(result))
-                playerScore++;
-            else if(!tieCheck(result))
-                computerScore++;
-            updateScoreBoard(playerScore, computerScore);
+            if(!flag){
+                const playerSelection = e.target.textContent;
+                let result = playRound(playerSelection,getComputerChoice());
+                displayOnTitle(result);
+                if(winCheck(result))
+                    playerScore++;
+                else if(!tieCheck(result))
+                    computerScore++;
+                updateScoreBoard(playerScore, computerScore);
+                if(playerScore == 5 || computerScore == 5){
+                    flag = true; // Can't play anymore unless restarted.
+                    announceWinner(playerScore, computerScore);
+                    playerScore = 0;
+                    computerScore = 0;
+                }     
+            }
+
         })
     })
 }
