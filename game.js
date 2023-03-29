@@ -106,6 +106,7 @@ function handleRestart(){
     })
 }
 
+
 function announceWinner(playerScore, computerScore){
     if(playerScore == 5){
         displayOnTitle("Nice Job! You have won the Game against the Computer!  Press Restart to try another Game!")
